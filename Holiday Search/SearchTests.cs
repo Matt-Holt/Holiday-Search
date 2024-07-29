@@ -18,9 +18,9 @@ namespace Holiday_Search
          * Flight 2 and Hotel 9
          */
         [TestMethod]
-        public void Test1_ToAGPFromMan7Nights()
+        public void Test1_ToAGPFromMAN7Nights()
         {
-            HolidaySearch search = new HolidaySearch("MAN", "AGP", new DateTime(2023, 7, 1), 7);
+            HolidaySearch search = new HolidaySearch(new string[] { "MAN" }, "AGP", new DateTime(2023, 7, 1), 7);
             search.Search();
 
             //Check flight
@@ -29,6 +29,31 @@ namespace Holiday_Search
             //Check Hotel
             Hotel hotel = search.Result.Hotel;
             Assert.IsTrue(hotel.Id == 9);
+        }
+
+        /*
+         * #### Customer #2
+         * ##### Input
+         * Departing from: Any London Airport
+         * Traveling to: Mallorca Airport (PMI)
+         * Departure Date: 2023/06/15
+         * Duration: 10 nights
+         * 
+         * ##### Expected result
+         * Flight 6 and Hotel 5
+         */
+        [TestMethod]
+        public void Test2_ToPMIFromLON10Nights()
+        {
+            HolidaySearch search = new HolidaySearch(new string[]{"LTN", "LGW"}, "PMI", new DateTime(2023, 6, 15), 7);
+            search.Search();
+
+            //Check flight
+            Flight flight = search.Result.Flight;
+            Assert.IsTrue(flight.Id == 6);
+            //Check Hotel
+            Hotel hotel = search.Result.Hotel;
+            Assert.IsTrue(hotel.Id == 5);
         }
     }
 }

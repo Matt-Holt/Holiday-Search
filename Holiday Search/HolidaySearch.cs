@@ -16,13 +16,13 @@ namespace Holiday_Search
          * Departure Date: 2023/07/01
          * Duration: 7 nights
          * */
-        public string DepartingFrom;
+        public string[] DepartingFrom;
         public string TravelingTo;
         public DateTime DepartureDate;
         public int Duration;
         public SearchResult Result;
 
-        public HolidaySearch(string DepartingFrom, string TravelingTo, DateTime DepartureDate, int Duration)
+        public HolidaySearch(string[] DepartingFrom, string TravelingTo, DateTime DepartureDate, int Duration)
         {
             this.DepartingFrom = DepartingFrom;
             this.TravelingTo = TravelingTo;
