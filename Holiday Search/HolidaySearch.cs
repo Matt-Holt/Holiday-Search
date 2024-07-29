@@ -34,6 +34,7 @@ namespace Holiday_Search
         {
             Result = new SearchResult();
             Result.Flight = new Flight(2);
+            Result.Hotel = new Hotel(9);
         }
     }
 }

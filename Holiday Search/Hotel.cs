@@ -9,5 +9,10 @@ namespace Holiday_Search
     class Hotel
     {
         public int Id;
+
+        public Hotel(int Id)
+        {
+            this.Id = Id;
+        }
     }
 }
