@@ -32,7 +32,8 @@ namespace Holiday_Search
 
         public void Search()
         {
-
+            Result = new SearchResult();
+            Result.Flight = new Flight(2);
         }
     }
 }

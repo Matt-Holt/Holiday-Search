@@ -9,5 +9,10 @@ namespace Holiday_Search
     class Flight
     {
         public int Id;
+
+        public Flight(int Id)
+        {
+            this.Id = Id;
+        }
     }
 }
