@@ -26,6 +26,9 @@ namespace Holiday_Search
             //Check flight
             Flight flight = search.Result.Flight;
             Assert.IsTrue(flight.Id == 2);
+            //Check Hotel
+            Hotel hotel = search.Result.Hotel;
+            Assert.IsTrue(hotel.Id == 9);
         }
     }
 }
