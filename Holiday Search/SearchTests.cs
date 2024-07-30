@@ -55,5 +55,28 @@ namespace Holiday_Search
             Hotel hotel = search.Result.Hotel;
             Assert.IsTrue(hotel.Id == 5);
         }
+
+        /*##### Input
+         * Departing from: Any Airport
+         * Traveling to: Gran Canaria Airport (LPA)
+         * Departure Date: 2022/11/10
+         * Duration: 14 nights
+         * 
+         * ##### Expected result
+         * Flight 7 and Hotel 6
+         */
+        [TestMethod]
+        public void Test3_ToLPAFromANY14Nights()
+        {
+            HolidaySearch search = new HolidaySearch(new string[] { "ANY" }, "LPA", new DateTime(2022, 11, 10), 14);
+            search.Search();
+
+            //Check flight
+            Flight flight = search.Result.Flight;
+            Assert.IsTrue(flight.Id == 7);
+            //Check Hotel
+            Hotel hotel = search.Result.Hotel;
+            Assert.IsTrue(hotel.Id == 6);
+        }
     }
 }
