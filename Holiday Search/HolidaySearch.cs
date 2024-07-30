@@ -46,26 +46,38 @@ namespace Holiday_Search
 
         private Hotel FilterHotels(List<Hotel> hotels)
         {
+            int cheapestPrice = int.MaxValue;
+            Hotel bestMatch = null;
             foreach (Hotel hotel in hotels)
             {
-                if (hotel.Local_Airports.Contains(TravelingTo))
+                if (hotel.Local_Airports.Contains(TravelingTo) && hotel.Nights == Duration)
                 {
-                    return hotel;
+                    if (hotel.Price_Per_Night * hotel.Nights < cheapestPrice)
+                    {
+                        bestMatch = hotel;
+                        cheapestPrice = hotel.Price_Per_Night * hotel.Nights;
+                    }
                 }
             }
-            return null;
+            return bestMatch;
         }
 
         private Flight FilterFlights(List<Flight> flights)
         {
+            int cheapestPrice = int.MaxValue;
+            Flight bestMatch = null;
             foreach (Flight flight in flights)
             {
                 if (DepartingFrom.Contains(flight.From) && flight.To.Equals(TravelingTo))
                 {
-                    return flight;
+                    if (flight.price < cheapestPrice)
+                    {
+                        bestMatch = flight;
+                        cheapestPrice = flight.price;
+                    }
                 }
             }
-            return null;
+            return bestMatch;
         }
     }
 }
