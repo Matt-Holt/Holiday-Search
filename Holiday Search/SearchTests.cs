@@ -56,7 +56,9 @@ namespace Holiday_Search
             Assert.IsTrue(hotel.Id == 5);
         }
 
-        /*##### Input
+        /*
+         * #### Customer #3
+         * ##### Input
          * Departing from: Any Airport
          * Traveling to: Gran Canaria Airport (LPA)
          * Departure Date: 2022/11/10
@@ -79,7 +81,8 @@ namespace Holiday_Search
             Assert.IsTrue(hotel.Id == 6);
         }
 
-        /*##### Input
+        /*
+         * ##### Input
          * Departing from: Invalid location (N/A)
          * Traveling to: Malaga Airport-Costa de Sol (AGP)
          * Departure Date: 2022/11/10
@@ -102,7 +105,8 @@ namespace Holiday_Search
             Assert.IsNull(hotel);
         }
 
-        /*##### Input
+        /*
+         * ##### Input
          * Departing from: Manchester Airport (MAN)
          * Traveling to: Amsterdam Airport Schiphol (AMS)
          * Departure Date: 2023/07/01
@@ -115,6 +119,29 @@ namespace Holiday_Search
         public void Test5_IncorrectDestination()
         {
             HolidaySearch search = new HolidaySearch(new string[] { "MAN" }, "AMS", new DateTime(2023, 7, 1), 7);
+            search.Search();
+
+            //Check flight
+            Flight flight = search.Result.Flight;
+            Assert.IsNull(flight);
+            //Check Hotel
+            Hotel hotel = search.Result.Hotel;
+            Assert.IsNull(hotel);
+        }
+        /*
+         * ##### Input
+         * Departing from: Manchester Airport (MAN)
+         * Traveling to: Malaga Airport (AGP)
+         * Departure Date: 2024/07/01
+         * Duration: 7 nights
+         * 
+         * ##### Expected result
+         * Flight and Hotel both null
+         */
+        [TestMethod]
+        public void Test6_IncorrectDate()
+        {
+            HolidaySearch search = new HolidaySearch(new string[] { "MAN" }, "AGP", new DateTime(2024, 7, 1), 7);
             search.Search();
 
             //Check flight
