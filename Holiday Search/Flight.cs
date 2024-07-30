@@ -14,10 +14,5 @@ namespace Holiday_Search
         public string To;
         public int price;
         public DateTime Departure_Date;
-
-        public Flight(int Id)
-        {
-            this.Id = Id;
-        }
     }
 }

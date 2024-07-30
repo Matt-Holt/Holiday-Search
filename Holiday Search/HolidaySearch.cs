@@ -8,14 +8,6 @@ namespace Holiday_Search
 {
     class HolidaySearch
     {
-        /*
-         * #### Customer #1
-         * ##### Input
-         * Departing from: Manchester Airport (MAN)
-         * Traveling to: Malaga Airport (AGP)
-         * Departure Date: 2023/07/01
-         * Duration: 7 nights
-         * */
         public string[] DepartingFrom;
         public string TravelingTo;
         public DateTime DepartureDate;
@@ -35,10 +27,13 @@ namespace Holiday_Search
             Result = new SearchResult();
             using (StreamReader reader = new StreamReader("Data.json"))
             {
+                //Reads json file for flight and hotel data
                 string jsonStr = reader.ReadToEnd();
                 JObject json = JObject.Parse(jsonStr);
                 List<Hotel> hotels = json["Hotels"].ToObject<List<Hotel>>();
                 List<Flight> flights = json["Flights"].ToObject<List<Flight>>();
+
+                //Filters hotel and flights to customer details
                 Result.Hotel = FilterHotels(hotels);
                 Result.Flight = FilterFlights(flights);
             }
@@ -50,12 +45,16 @@ namespace Holiday_Search
             Hotel bestMatch = null;
             foreach (Hotel hotel in hotels)
             {
+                //Skip if flight not traveling to customer desination
                 if (!hotel.Local_Airports.Contains(TravelingTo))
                     continue;
+                //Skip if hotel doesn't match duration of stay
                 if (hotel.Nights != Duration)
                     continue;
+                //Skip if arrival date doesn't match departure date
                 if (hotel.Arrival_Date != DepartureDate)
                     continue;
+                //Skip if current hotel is more expensive than current cheapest
                 if (!IsCheaper(hotel.Price_Per_Night * hotel.Nights, cheapestPrice))
                     continue;
 
@@ -71,12 +70,16 @@ namespace Holiday_Search
             Flight bestMatch = null;
             foreach (Flight flight in flights)
             {
-                if (!DepartingFrom.Contains(flight.From))
+                //Skip if flight has incorrect departure airport and not departing from any airport
+                if (!DepartingFrom.Contains(flight.From) && !DepartingFrom.Contains("ANY"))
                     continue;
+                //Skip if flight not traveling to customer desination
                 if (!flight.To.Equals(TravelingTo))
                     continue;
+                //Skip if departure date doesn't match
                 if (flight.Departure_Date != DepartureDate)
                     continue;
+                //Skip if current flight is more expensive than current cheapest
                 if (!IsCheaper(flight.price, cheapestPrice))
                     continue;
 

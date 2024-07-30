@@ -14,10 +14,5 @@ namespace Holiday_Search
         public int Price_Per_Night;
         public string[] Local_Airports;
         public int Nights;
-
-        public Hotel(int Id)
-        {
-            this.Id = Id;
-        }
     }
 }
