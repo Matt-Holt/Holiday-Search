@@ -50,14 +50,17 @@ namespace Holiday_Search
             Hotel bestMatch = null;
             foreach (Hotel hotel in hotels)
             {
-                if (hotel.Local_Airports.Contains(TravelingTo) && hotel.Nights == Duration && hotel.Arrival_Date == DepartureDate)
-                {
-                    if (hotel.Price_Per_Night * hotel.Nights < cheapestPrice)
-                    {
-                        bestMatch = hotel;
-                        cheapestPrice = hotel.Price_Per_Night * hotel.Nights;
-                    }
-                }
+                if (!hotel.Local_Airports.Contains(TravelingTo))
+                    continue;
+                if (hotel.Nights != Duration)
+                    continue;
+                if (hotel.Arrival_Date != DepartureDate)
+                    continue;
+                if (!IsCheaper(hotel.Price_Per_Night * hotel.Nights, cheapestPrice))
+                    continue;
+
+                bestMatch = hotel;
+                cheapestPrice = hotel.Price_Per_Night * hotel.Nights;
             }
             return bestMatch;
         }
@@ -68,16 +71,24 @@ namespace Holiday_Search
             Flight bestMatch = null;
             foreach (Flight flight in flights)
             {
-                if (DepartingFrom.Contains(flight.From) && flight.To.Equals(TravelingTo) && flight.Departure_Date == DepartureDate)
-                {
-                    if (flight.price < cheapestPrice)
-                    {
-                        bestMatch = flight;
-                        cheapestPrice = flight.price;
-                    }
-                }
+                if (!DepartingFrom.Contains(flight.From))
+                    continue;
+                if (!flight.To.Equals(TravelingTo))
+                    continue;
+                if (flight.Departure_Date != DepartureDate)
+                    continue;
+                if (!IsCheaper(flight.price, cheapestPrice))
+                    continue;
+
+                bestMatch = flight;
+                cheapestPrice = flight.price;
             }
             return bestMatch;
+        }
+
+        private bool IsCheaper(int valueA, int valueB)
+        {
+            return valueA < valueB;
         }
     }
 }
