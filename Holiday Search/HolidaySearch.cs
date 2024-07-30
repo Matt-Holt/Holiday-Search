@@ -50,7 +50,7 @@ namespace Holiday_Search
             Hotel bestMatch = null;
             foreach (Hotel hotel in hotels)
             {
-                if (hotel.Local_Airports.Contains(TravelingTo) && hotel.Nights == Duration)
+                if (hotel.Local_Airports.Contains(TravelingTo) && hotel.Nights == Duration && hotel.Arrival_Date == DepartureDate)
                 {
                     if (hotel.Price_Per_Night * hotel.Nights < cheapestPrice)
                     {
@@ -68,7 +68,7 @@ namespace Holiday_Search
             Flight bestMatch = null;
             foreach (Flight flight in flights)
             {
-                if (DepartingFrom.Contains(flight.From) && flight.To.Equals(TravelingTo))
+                if (DepartingFrom.Contains(flight.From) && flight.To.Equals(TravelingTo) && flight.Departure_Date == DepartureDate)
                 {
                     if (flight.price < cheapestPrice)
                     {
