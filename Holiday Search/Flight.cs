@@ -13,7 +13,7 @@ namespace Holiday_Search
         public string From;
         public string To;
         public int price;
-        public DateTime DepatureDate;
+        public DateTime Departure_Date;
 
         public Flight(int Id)
         {

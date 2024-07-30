@@ -39,21 +39,33 @@ namespace Holiday_Search
                 JObject json = JObject.Parse(jsonStr);
                 List<Hotel> hotels = json["Hotels"].ToObject<List<Hotel>>();
                 List<Flight> flights = json["Flights"].ToObject<List<Flight>>();
-                foreach (Hotel hotel in hotels)
+                Result.Hotel = FilterHotels(hotels);
+                Result.Flight = FilterFlights(flights);
+            }
+        }
+
+        private Hotel FilterHotels(List<Hotel> hotels)
+        {
+            foreach (Hotel hotel in hotels)
+            {
+                if (hotel.Local_Airports.Contains(TravelingTo))
                 {
-                    if (hotel.Id == 9)
-                    {
-                        Result.Hotel = hotel;
-                    }
-                }
-                foreach (Flight flight in flights)
-                {
-                    if (flight.Id == 2)
-                    {
-                        Result.Flight = flight;
-                    }
+                    return hotel;
                 }
             }
+            return null;
+        }
+
+        private Flight FilterFlights(List<Flight> flights)
+        {
+            foreach (Flight flight in flights)
+            {
+                if (DepartingFrom.Contains(flight.From) && flight.To.Equals(TravelingTo))
+                {
+                    return flight;
+                }
+            }
+            return null;
         }
     }
 }

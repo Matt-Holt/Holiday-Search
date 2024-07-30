@@ -10,10 +10,10 @@ namespace Holiday_Search
     {
         public int Id;
         public string Name;
-        public DateTime ArrivalDate;
-        public int PricePerNight;
-        public string[] LocalAirports;
-        public int nights;
+        public DateTime Arrival_Date;
+        public int Price_Per_Night;
+        public string[] Local_Airports;
+        public int Nights;
 
         public Hotel(int Id)
         {
