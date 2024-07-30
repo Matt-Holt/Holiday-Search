@@ -78,5 +78,28 @@ namespace Holiday_Search
             Hotel hotel = search.Result.Hotel;
             Assert.IsTrue(hotel.Id == 6);
         }
+
+        /*##### Input
+         * Departing from: Invalid location (N/A)
+         * Traveling to: Gran Canaria Airport (AGP)
+         * Departure Date: 2022/11/10
+         * Duration: 14 nights
+         * 
+         * ##### Expected result
+         * Flight and Hotel both null
+         */
+        [TestMethod]
+        public void Test4_IncorrectDepartureLocation()
+        {
+            HolidaySearch search = new HolidaySearch(new string[] { "N/A" }, "AGP", new DateTime(2022, 11, 10), 14);
+            search.Search();
+
+            //Check flight
+            Flight flight = search.Result.Flight;
+            Assert.IsNull(flight);
+            //Check Hotel
+            Hotel hotel = search.Result.Hotel;
+            Assert.IsNull(hotel);
+        }
     }
 }
