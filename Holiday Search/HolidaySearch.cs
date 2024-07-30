@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Holiday_Search
 {
@@ -33,8 +33,27 @@ namespace Holiday_Search
         public void Search()
         {
             Result = new SearchResult();
-            Result.Flight = new Flight(2);
-            Result.Hotel = new Hotel(9);
+            using (StreamReader reader = new StreamReader("Data.json"))
+            {
+                string jsonStr = reader.ReadToEnd();
+                JObject json = JObject.Parse(jsonStr);
+                List<Hotel> hotels = json["Hotels"].ToObject<List<Hotel>>();
+                List<Flight> flights = json["Flights"].ToObject<List<Flight>>();
+                foreach (Hotel hotel in hotels)
+                {
+                    if (hotel.Id == 9)
+                    {
+                        Result.Hotel = hotel;
+                    }
+                }
+                foreach (Flight flight in flights)
+                {
+                    if (flight.Id == 2)
+                    {
+                        Result.Flight = flight;
+                    }
+                }
+            }
         }
     }
 }

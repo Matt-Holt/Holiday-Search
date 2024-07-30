@@ -9,6 +9,11 @@ namespace Holiday_Search
     class Hotel
     {
         public int Id;
+        public string Name;
+        public DateTime ArrivalDate;
+        public int PricePerNight;
+        public string[] LocalAirports;
+        public int nights;
 
         public Hotel(int Id)
         {
