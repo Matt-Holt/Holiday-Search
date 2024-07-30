@@ -81,7 +81,7 @@ namespace Holiday_Search
 
         /*##### Input
          * Departing from: Invalid location (N/A)
-         * Traveling to: Gran Canaria Airport (AGP)
+         * Traveling to: Malaga Airport-Costa de Sol (AGP)
          * Departure Date: 2022/11/10
          * Duration: 14 nights
          * 
@@ -92,6 +92,29 @@ namespace Holiday_Search
         public void Test4_IncorrectDepartureLocation()
         {
             HolidaySearch search = new HolidaySearch(new string[] { "N/A" }, "AGP", new DateTime(2022, 11, 10), 14);
+            search.Search();
+
+            //Check flight
+            Flight flight = search.Result.Flight;
+            Assert.IsNull(flight);
+            //Check Hotel
+            Hotel hotel = search.Result.Hotel;
+            Assert.IsNull(hotel);
+        }
+
+        /*##### Input
+         * Departing from: Manchester Airport (MAN)
+         * Traveling to: Amsterdam Airport Schiphol (AMS)
+         * Departure Date: 2023/07/01
+         * Duration: 7 nights
+         * 
+         * ##### Expected result
+         * Flight and Hotel both null
+         */
+        [TestMethod]
+        public void Test5_IncorrectDestination()
+        {
+            HolidaySearch search = new HolidaySearch(new string[] { "MAN" }, "AMS", new DateTime(2023, 7, 1), 7);
             search.Search();
 
             //Check flight
