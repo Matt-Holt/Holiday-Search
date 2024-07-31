@@ -98,12 +98,8 @@ namespace Holiday_Search
             HolidaySearch search = new HolidaySearch(new string[] { "N/A" }, "AGP", new DateTime(2022, 11, 10), 14);
             search.Search();
 
-            //Check flight
-            Flight flight = search.Result.First().Flight;
-            Assert.IsNull(flight);
-            //Check Hotel
-            Hotel hotel = search.Result.First().Hotel;
-            Assert.IsNull(hotel);
+            //Check results
+            Assert.IsTrue(search.Result.Count == 0);
         }
         
         /*
@@ -122,12 +118,8 @@ namespace Holiday_Search
             HolidaySearch search = new HolidaySearch(new string[] { "MAN" }, "AMS", new DateTime(2023, 7, 1), 7);
             search.Search();
 
-            //Check flight
-            Flight flight = search.Result.First().Flight;
-            Assert.IsNull(flight);
-            //Check Hotel
-            Hotel hotel = search.Result.First().Hotel;
-            Assert.IsNull(hotel);
+            //Check results
+            Assert.IsTrue(search.Result.Count == 0);
         }
 
         /*
@@ -146,12 +138,8 @@ namespace Holiday_Search
             HolidaySearch search = new HolidaySearch(new string[] { "MAN" }, "AGP", new DateTime(2024, 7, 1), 7);
             search.Search();
 
-            //Check flight
-            Flight flight = search.Result.First().Flight;
-            Assert.IsNull(flight);
-            //Check Hotel
-            Hotel hotel = search.Result.First().Hotel;
-            Assert.IsNull(hotel);
+            //Check results
+            Assert.IsTrue(search.Result.Count == 0);
         }
 
         /*
