@@ -12,7 +12,7 @@ namespace Holiday_Search
         public string TravelingTo;
         public DateTime DepartureDate;
         public int Duration;
-        public SearchResult Result;
+        public List<SearchResult> Result = new List<SearchResult>();
 
         public HolidaySearch(string[] DepartingFrom, string TravelingTo, DateTime DepartureDate, int Duration)
         {
@@ -24,7 +24,6 @@ namespace Holiday_Search
 
         public void Search()
         {
-            Result = new SearchResult();
             using (StreamReader reader = new StreamReader("Data.json"))
             {
                 //Reads json file for flight and hotel data
@@ -34,8 +33,8 @@ namespace Holiday_Search
                 List<Flight> flights = json["Flights"].ToObject<List<Flight>>();
 
                 //Filters hotel and flights to customer details
-                Result.Hotel = FilterHotels(hotels);
-                Result.Flight = FilterFlights(flights);
+                //Result.Hotel = FilterHotels(hotels);
+                //Result.Flight = FilterFlights(flights);
             }
         }
 

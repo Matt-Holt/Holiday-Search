@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 
 namespace Holiday_Search
 {
@@ -24,10 +25,10 @@ namespace Holiday_Search
             search.Search();
 
             //Check flight
-            Flight flight = search.Result.Flight;
+            Flight flight = search.Result.First().Flight;
             Assert.IsTrue(flight.Id == 2);
             //Check Hotel
-            Hotel hotel = search.Result.Hotel;
+            Hotel hotel = search.Result.First().Hotel;
             Assert.IsTrue(hotel.Id == 9);
         }
 
@@ -49,10 +50,10 @@ namespace Holiday_Search
             search.Search();
 
             //Check flight
-            Flight flight = search.Result.Flight;
+            Flight flight = search.Result.First().Flight;
             Assert.IsTrue(flight.Id == 6);
             //Check Hotel
-            Hotel hotel = search.Result.Hotel;
+            Hotel hotel = search.Result.First().Hotel;
             Assert.IsTrue(hotel.Id == 5);
         }
 
@@ -74,10 +75,10 @@ namespace Holiday_Search
             search.Search();
 
             //Check flight
-            Flight flight = search.Result.Flight;
+            Flight flight = search.Result.First().Flight;
             Assert.IsTrue(flight.Id == 7);
             //Check Hotel
-            Hotel hotel = search.Result.Hotel;
+            Hotel hotel = search.Result.First().Hotel;
             Assert.IsTrue(hotel.Id == 6);
         }
 
@@ -98,10 +99,10 @@ namespace Holiday_Search
             search.Search();
 
             //Check flight
-            Flight flight = search.Result.Flight;
+            Flight flight = search.Result.First().Flight;
             Assert.IsNull(flight);
             //Check Hotel
-            Hotel hotel = search.Result.Hotel;
+            Hotel hotel = search.Result.First().Hotel;
             Assert.IsNull(hotel);
         }
 
@@ -122,10 +123,10 @@ namespace Holiday_Search
             search.Search();
 
             //Check flight
-            Flight flight = search.Result.Flight;
+            Flight flight = search.Result.First().Flight;
             Assert.IsNull(flight);
             //Check Hotel
-            Hotel hotel = search.Result.Hotel;
+            Hotel hotel = search.Result.First().Hotel;
             Assert.IsNull(hotel);
         }
         /*
@@ -145,11 +146,45 @@ namespace Holiday_Search
             search.Search();
 
             //Check flight
-            Flight flight = search.Result.Flight;
+            Flight flight = search.Result.First().Flight;
             Assert.IsNull(flight);
             //Check Hotel
-            Hotel hotel = search.Result.Hotel;
+            Hotel hotel = search.Result.First().Hotel;
             Assert.IsNull(hotel);
+        }
+
+        /*
+         * ##### Input
+         * Departing from: Manchester Airport (MAN)
+         * Traveling to: Mallorca Airport (PMI)
+         * Departure Date: 2023/06/15
+         * Duration: 14 nights
+         * 
+         * ##### Expected result
+         * Flights 3, 4, 5 and Hotels 3, 4
+         */
+        [TestMethod]
+        public void Test7_MultipleResults()
+        {
+            HolidaySearch search = new HolidaySearch(new string[] { "MAN", "LTN" }, "PMI", new DateTime(2023, 6, 15), 14);
+            search.Search();
+
+            //Check flights
+            Flight flight1 = search.Result.First().Flight;
+            Assert.IsTrue(flight1.Id == 2);
+            Flight flight2 = search.Result.ElementAt(1).Flight;
+            Assert.IsTrue(flight2.Id == 2);
+            Flight flight3 = search.Result.ElementAt(2).Flight;
+            Assert.IsTrue(flight3.Id == 2);
+
+
+            //Check hotels
+            Hotel hotel1 = search.Result.First().Hotel;
+            Assert.IsTrue(hotel1.Id == 2);
+            Hotel hotel2 = search.Result.ElementAt(1).Hotel;
+            Assert.IsTrue(hotel2.Id == 2);
+            Hotel hotel3 = search.Result.ElementAt(2).Hotel;
+            Assert.IsTrue(hotel3.Id == 2);
         }
     }
 }
