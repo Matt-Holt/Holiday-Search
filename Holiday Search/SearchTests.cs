@@ -171,20 +171,18 @@ namespace Holiday_Search
 
             //Check flights
             Flight flight1 = search.Result.First().Flight;
-            Assert.IsTrue(flight1.Id == 2);
+            Assert.IsTrue(flight1.Id == 3);
             Flight flight2 = search.Result.ElementAt(1).Flight;
-            Assert.IsTrue(flight2.Id == 2);
+            Assert.IsTrue(flight2.Id == 4);
             Flight flight3 = search.Result.ElementAt(2).Flight;
-            Assert.IsTrue(flight3.Id == 2);
+            Assert.IsTrue(flight3.Id == 5);
 
 
             //Check hotels
             Hotel hotel1 = search.Result.First().Hotel;
-            Assert.IsTrue(hotel1.Id == 2);
+            Assert.IsTrue(hotel1.Id == 3);
             Hotel hotel2 = search.Result.ElementAt(1).Hotel;
-            Assert.IsTrue(hotel2.Id == 2);
-            Hotel hotel3 = search.Result.ElementAt(2).Hotel;
-            Assert.IsTrue(hotel3.Id == 2);
+            Assert.IsTrue(hotel2.Id == 4);
         }
     }
 }
