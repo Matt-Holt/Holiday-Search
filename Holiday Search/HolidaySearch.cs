@@ -31,11 +31,12 @@ namespace Holiday_Search
                 JObject json = JObject.Parse(jsonStr);
                 List<Hotel> hotels = json["Hotels"].ToObject<List<Hotel>>();
                 hotels = FilterHotels(hotels);
-                hotels = hotels.OrderBy(h => h.Price_Per_Night * h.Nights).ToList();
+                hotels = hotels.OrderBy(h => h.Price_Per_Night * h.Nights).ToList(); //Filters hotels and orders by price per night
                 List<Flight> flights = json["Flights"].ToObject<List<Flight>>();
                 flights = FilterFlights(flights);
-                flights = flights.OrderBy(f => f.price).ToList();
+                flights = flights.OrderBy(f => f.price).ToList(); //Filters flights and orders by price
 
+                //Adds each flight and hotel to a search result
                 int listSize = (flights.Count > hotels.Count) ? flights.Count : hotels.Count;
                 for(int i = 0; i < listSize; i++)
                 {
@@ -88,11 +89,6 @@ namespace Holiday_Search
                 flightList.Add(flight);
             }
             return flightList;
-        }
-
-        private bool IsCheaper(int valueA, int valueB)
-        {
-            return valueA < valueB;
         }
     }
 }
