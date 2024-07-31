@@ -105,7 +105,7 @@ namespace Holiday_Search
             Hotel hotel = search.Result.First().Hotel;
             Assert.IsNull(hotel);
         }
-
+        
         /*
          * ##### Input
          * Departing from: Manchester Airport (MAN)
@@ -129,6 +129,7 @@ namespace Holiday_Search
             Hotel hotel = search.Result.First().Hotel;
             Assert.IsNull(hotel);
         }
+
         /*
          * ##### Input
          * Departing from: Manchester Airport (MAN)
@@ -171,11 +172,11 @@ namespace Holiday_Search
 
             //Check flights
             Flight flight1 = search.Result.First().Flight;
-            Assert.IsTrue(flight1.Id == 3);
+            Assert.IsTrue(flight1.Id == 5);
             Flight flight2 = search.Result.ElementAt(1).Flight;
             Assert.IsTrue(flight2.Id == 4);
             Flight flight3 = search.Result.ElementAt(2).Flight;
-            Assert.IsTrue(flight3.Id == 5);
+            Assert.IsTrue(flight3.Id == 3);
 
 
             //Check hotels

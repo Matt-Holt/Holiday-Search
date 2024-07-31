@@ -30,18 +30,29 @@ namespace Holiday_Search
                 string jsonStr = reader.ReadToEnd();
                 JObject json = JObject.Parse(jsonStr);
                 List<Hotel> hotels = json["Hotels"].ToObject<List<Hotel>>();
+                hotels = FilterHotels(hotels);
+                hotels = hotels.OrderBy(h => h.Price_Per_Night * h.Nights).ToList();
                 List<Flight> flights = json["Flights"].ToObject<List<Flight>>();
+                flights = FilterFlights(flights);
+                flights = flights.OrderBy(f => f.price).ToList();
 
-                //Filters hotel and flights to customer details
-                //Result.Hotel = FilterHotels(hotels);
-                //Result.Flight = FilterFlights(flights);
+                int listSize = (flights.Count > hotels.Count) ? flights.Count : hotels.Count;
+                for(int i = 0; i < listSize; i++)
+                {
+                    SearchResult r = new SearchResult();
+                    if (i < flights.Count)
+                        r.Flight = flights.ElementAt(i);
+                    if (i < hotels.Count)
+                        r.Hotel = hotels.ElementAt(i);
+
+                    Result.Add(r);
+                }
             }
         }
 
-        private Hotel FilterHotels(List<Hotel> hotels)
+        private List<Hotel> FilterHotels(List<Hotel> hotels)
         {
-            int cheapestPrice = int.MaxValue;
-            Hotel bestMatch = null;
+            List<Hotel> hotelList = new List<Hotel>();
             foreach (Hotel hotel in hotels)
             {
                 //Skip if flight not traveling to customer desination
@@ -53,20 +64,15 @@ namespace Holiday_Search
                 //Skip if arrival date doesn't match departure date
                 if (hotel.Arrival_Date != DepartureDate)
                     continue;
-                //Skip if current hotel is more expensive than current cheapest
-                if (!IsCheaper(hotel.Price_Per_Night * hotel.Nights, cheapestPrice))
-                    continue;
 
-                bestMatch = hotel;
-                cheapestPrice = hotel.Price_Per_Night * hotel.Nights;
+                hotelList.Add(hotel);
             }
-            return bestMatch;
+            return hotelList;
         }
 
-        private Flight FilterFlights(List<Flight> flights)
+        private List<Flight> FilterFlights(List<Flight> flights)
         {
-            int cheapestPrice = int.MaxValue;
-            Flight bestMatch = null;
+            List<Flight> flightList = new List<Flight>();
             foreach (Flight flight in flights)
             {
                 //Skip if flight has incorrect departure airport and not departing from any airport
@@ -78,14 +84,10 @@ namespace Holiday_Search
                 //Skip if departure date doesn't match
                 if (flight.Departure_Date != DepartureDate)
                     continue;
-                //Skip if current flight is more expensive than current cheapest
-                if (!IsCheaper(flight.price, cheapestPrice))
-                    continue;
 
-                bestMatch = flight;
-                cheapestPrice = flight.price;
+                flightList.Add(flight);
             }
-            return bestMatch;
+            return flightList;
         }
 
         private bool IsCheaper(int valueA, int valueB)
